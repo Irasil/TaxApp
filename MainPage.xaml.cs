@@ -7,40 +7,44 @@ namespace TaxApp;
 public partial class MainPage : ContentPage
 {
 
-    
-    
     public MainPage()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         BindingContext = SharedData.Instance.Data;
-        
     }
 
-     void OnButtonClicked(object sender, EventArgs args)
+    void OnButtonClicked(object sender, EventArgs args)
     {
-        ResultPage result = new ResultPage();
-
-        string selectedValue = picker.SelectedItem?.ToString();
-        if (selectedValue == null)
+        if (((TaxCalc)BindingContext).Betrag == 0)
         {
-             DisplayAlert("Error", "Bitte wählen Sie einen Prozentsatz", "OK");
-            return;
+            DisplayAlert("Fehler", "Bitte Betrag eingeben", "OK");
         }
-        if (selectedValue == "2.5 Prozent")
+        else
         {
-            ((TaxCalc)BindingContext).UstProzent = 2.5f;
-        }else if(selectedValue == "3.5 Prozent")
-        {
-            ((TaxCalc)BindingContext).UstProzent = 3.5f;
-            
-        }else if(selectedValue == "8 Prozent")
-        {
-            ((TaxCalc)BindingContext).UstProzent = 8f;        
-        }
+            string selectedValue = picker.SelectedItem?.ToString();
 
-        var lol = ((TaxCalc)BindingContext).BetragBrutto;
+            if (selectedValue == null)
+            {
+                DisplayAlert("Error", "Bitte wählen Sie einen Prozentsatz", "OK");
+                return;
+            }
+            if (selectedValue == "2.5 Prozent")
+            {
+                ((TaxCalc)BindingContext).UstProzent = 2.5f;
+            }
+            else if (selectedValue == "3.5 Prozent")
+            {
+                ((TaxCalc)BindingContext).UstProzent = 3.5f;
+
+            }
+            else if (selectedValue == "8 Prozent")
+            {
+                ((TaxCalc)BindingContext).UstProzent = 8f;
+            }
+
         ((TaxCalc)BindingContext).BerechneErgebnis();
-        Shell.Current.GoToAsync(nameof(ResultPage));
+            Shell.Current.GoToAsync(nameof(ResultPage));
+        }
     }
 
 }
