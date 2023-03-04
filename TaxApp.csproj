@@ -32,7 +32,7 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\tax.svg" BaseSize="80,80" />
+		<MauiIcon  Include="Resources\AppIcon\tax.svg" Resize="false" />
 
 		<!-- Splash Screen -->
 
